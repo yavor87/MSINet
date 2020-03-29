@@ -9,6 +9,6 @@
     <description>My package description.</description>
   </metadata>
   <files>
-    <file src="MSINet\bin\Release\netstandard2.0\MSINet.dll" target="lib\MSINet.dll" />
+    <file src="MSINet\bin\Release\netstandard2.0\MSINet.dll" target="lib\netstandard2.0\MSINet.dll" />
   </files>
 </package>
