@@ -16,7 +16,8 @@ namespace MSINet
         private readonly Guid _guid;
         
         public Guid GUID => _guid;
-        public string InstalledProductName => TryGetProperty(InstallPropertyNames.InstalledProductName);
+        public string ProductName => TryGetProperty(InstallPropertyNames.InstalledProductName);
+        public Version Version => this.GetPropertyAsOrDefault<Version>(InstallPropertyNames.VersionString, value => new Version(value), (Version) null);
         public string VersionString => TryGetProperty(InstallPropertyNames.VersionString);
         public string HelpLink => TryGetProperty(InstallPropertyNames.HelpLink);
         public string HelpTelephone => TryGetProperty(InstallPropertyNames.HelpTelephone);
@@ -46,9 +47,9 @@ namespace MSINet
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            if (!string.IsNullOrEmpty(InstalledProductName))
+            if (!string.IsNullOrEmpty(ProductName))
             {
-                sb.Append(InstalledProductName);
+                sb.Append(ProductName);
                 sb.Append(" ");
             }
             sb.Append(_guid);
