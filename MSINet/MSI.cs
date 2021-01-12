@@ -21,7 +21,10 @@ namespace MSINet
                 ret = MsiInterop.MsiEnumProductsEx(null, null, InstallContext.All, i, guid, out dummy1, null, ref dummy2);
                 if (ret == MsiExitCodes.Success)
                 {
-                    yield return ParseGuild(guid);
+                    if (Guid.TryParse(guid.TrimEnd('\0'), out var result))
+                    {
+                        yield return result;
+                    }
                 }
                 i++;
             } while (ret != MsiExitCodes.NoMoreItems);
@@ -97,11 +100,6 @@ namespace MSINet
         private static string FormatGUID(Guid guid)
         {
             return string.Format("{{{0}}}\0", guid.ToString());
-        }
-
-        private static Guid ParseGuild(string guid)
-        {
-            return new Guid(guid.TrimEnd('\0'));
         }
     }
 }
